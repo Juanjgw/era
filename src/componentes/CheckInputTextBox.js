@@ -9,7 +9,7 @@ const CheckInputTextBox = ({ label, value, onChange }) => {
     // Verificar si el valor es un número
     if (!isNaN(inputValue)) {
       setErrorMessage('');
-      onChange(inputValue); // Llamar a la función onChange
+      onChange(inputValue); // Llamar a la función onCh
     } else {
       setErrorMessage('Solo se permiten números');
     }

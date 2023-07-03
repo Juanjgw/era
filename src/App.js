@@ -23,6 +23,7 @@ function App() {
   addInputField(2);
   addInputField(3);
   addInputField(4);
+  addInputField(5);
 
   // Puedes agregar más llamadas a addInputField según tus necesidades
 
