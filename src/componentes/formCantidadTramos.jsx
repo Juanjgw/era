@@ -27,7 +27,19 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
       default:
         break;
     }
- 
+    switch (params.selectCSeparacion) {
+      case "1":
+        comienzaEn += parseInt(params.cSeparacion);
+        break;
+      case "2":
+        comienzaEn += ((parseInt(params.cSeparacion)) - 55) / 2;
+        break;
+      default:
+        break;
+    }
+
+    
+
     
     // Terminacion
      
@@ -41,6 +53,17 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
       default:
         break;
     }
+    switch (params.selectTSeparacion) {
+      case "1":
+        terminaEn += parseInt(params.tSeparacion);
+        break;
+      case "2":
+        comienzaEn += ((parseInt(params.tSeparacion)) - 55) / 2;
+        break;
+      default:
+        break;
+    }
+
     
     // Imprimir los resultados
     const cantidad_vidrios = Math.floor(params.largoTramo / 1250);
@@ -50,7 +73,7 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
     console.log("Valor de params.cSeparacion:", params.cSeparacion);
     console.log("Valor de params.tSeparacion:", params.tSeparacion);
     console.log("Valor de cantidad_vidrios:", cantidad_vidrios);
-    const longitud_tramo = Math.floor((params.largoTramo - comienzaEn - terminaEn - params.cSeparacion - params.tSeparacion - ((cantidad_vidrios - 1) * 21)) / cantidad_vidrios);
+    const longitud_tramo = Math.round((params.largoTramo - comienzaEn - terminaEn - params.tSeparacion - ((cantidad_vidrios - 1) * 21)) / cantidad_vidrios);
 
     const cantidad_columnas = cantidad_vidrios + 1;
     console.log("Cantidad de columnas necesarias:", cantidad_columnas);
