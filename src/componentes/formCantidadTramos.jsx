@@ -9,10 +9,9 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
     // Reemplazar por calculo cantidad de tramos
     // params cuenta con toda la informacion necesaria
     // Calcular la cantidad de columnas necesarias
-    const cantidad_vidrios = Math.floor(params.largoTramo / 1250);
+    
     // Calcular la longitud de cada tramo
-    const longitud_tramo = Math.floor((params.largoTramo - ((cantidad_vidrios - 1) * 21)) / cantidad_vidrios);
-    const cantidad_columnas = cantidad_vidrios + 1;
+    
     var comienzaEn, terminaEn;
 
     // Comienzo
@@ -26,13 +25,34 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
         comienzaEn = 43; // descuento por tipo L
         break;
       default:
-        // Manejar el caso en que params.tcomienzo no sea ni 1 ni 2
-        console.error("Valor no válido para params.tcomienzo:", params.selectTComienzo);
         break;
     }
-    console.log(`comienzaEn=${comienzaEn}`);
+ 
+    
+    // Terminacion
+     
+    switch (params.selectTTerminacion) {
+      case "1":
+        terminaEn = 38; // descuento por tipo C
+        break;
+      case "2":
+        terminaEn = 43; // descuento por tipo L
+        break;
+      default:
+        break;
+    }
     
     // Imprimir los resultados
+    const cantidad_vidrios = Math.floor(params.largoTramo / 1250);
+    console.log("Valor de params.largoTramo:", params.largoTramo);
+    console.log("Valor de comienzaEn:", comienzaEn);
+    console.log("Valor de terminaEn:", terminaEn);
+    console.log("Valor de params.cSeparacion:", params.cSeparacion);
+    console.log("Valor de params.tSeparacion:", params.tSeparacion);
+    console.log("Valor de cantidad_vidrios:", cantidad_vidrios);
+    const longitud_tramo = Math.floor((params.largoTramo - comienzaEn - terminaEn - params.cSeparacion - params.tSeparacion - ((cantidad_vidrios - 1) * 21)) / cantidad_vidrios);
+
+    const cantidad_columnas = cantidad_vidrios + 1;
     console.log("Cantidad de columnas necesarias:", cantidad_columnas);
     console.log("Longitud de los vidrios:", longitud_tramo);
    

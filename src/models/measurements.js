@@ -5,8 +5,9 @@ export const tiposAlineacion = {
 };
 
 export const tiposHerraje = {
-  TipoL: 1,
-  TipoC: 2
+  TipoC: 1,
+  TipoL: 2
+  
 };
 
 export const selectTiposAlineacion = [
@@ -17,6 +18,6 @@ export const selectTiposAlineacion = [
 
 export const selectTiposHerraje = [
   { label: "Elige tipo de Herraje", value: -1},
-  { label: "Tipo L", value: tiposHerraje.TipoL},
-  { label: "Tipo C", value: tiposHerraje.TipoC}
+  { label: "Tipo C", value: tiposHerraje.TipoC},
+  { label: "Tipo L", value: tiposHerraje.TipoL}
 ];
