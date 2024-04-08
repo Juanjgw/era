@@ -5,8 +5,8 @@ export const tiposAlineacion = {
 };
 
 export const tiposHerraje = {
-  TipoC: 1,
-  TipoL: 2
+  TipoC: 38,
+  TipoL: 43
   
 };
 

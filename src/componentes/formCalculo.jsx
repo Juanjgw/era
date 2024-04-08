@@ -10,10 +10,10 @@ const defaultParams = {
   cSeparacion: 0,
   tSeparacion: 0,
   altura: 0,
-  selectTComienzo: 0,
-  selectCSeparacion: 0,
-  selectTTerminacion: 0,
-  selectTSeparacion: 0,
+  selectTComienzo: -1,
+  selectCSeparacion: -1,
+  selectTTerminacion: -1,
+  selectTSeparacion: -1,
   cantidadTramos: 0, // ejemplo de valor a definir en modal
 }
 
