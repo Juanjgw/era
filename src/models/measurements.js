@@ -16,8 +16,13 @@ export const selectTiposAlineacion = [
   { label: "Centrado", value: tiposAlineacion.Centrado}
 ];
 
-export const selectTiposHerraje = [
+/*export const selectTiposHerraje = [
   { label: "Elige tipo de Herraje", value: -1},
   { label: "Tipo C", value: tiposHerraje.TipoC},
   { label: "Tipo L", value: tiposHerraje.TipoL}
+];*/
+export const selectTiposHerraje = [
+  { label: "Elige tipo de Herraje", value: -1 },
+  { label: "Tipo C", value: 38 },
+  { label: "Tipo L", value: 43 }
 ];

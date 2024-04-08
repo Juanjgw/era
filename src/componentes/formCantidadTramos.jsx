@@ -2,68 +2,53 @@ import React, { useState } from 'react'
 import ModalControl from './controls/modalControl';
 import { Form } from 'react-bootstrap';
 
+
 const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props }) => {
   const [optionSelected, setOptionSelected] = useState("1");
 
   const calcularTramos = () => {
-    // Reemplazar por calculo cantidad de tramos
-    // params cuenta con toda la informacion necesaria
-    // Calcular la cantidad de columnas necesarias
+    if (!params.selectTComienzo || !params.selectTTerminacion || !params.selectCSeparacion || !params.selectTSeparacion ||
+      params.selectTComienzo === "" || params.selectTTerminacion === "" || params.selectCSeparacion === "" || params.selectTSeparacion === "") {
+    alert("Por favor selecciona una opción en cada selector antes de calcular.");
+    return; // Salir de la función si falta alguna selección
+  }
+  
     
-    // Calcular la longitud de cada tramo
-    
-    var comienzaEn, terminaEn;
+    var comienzaEn = 0;
+    var terminaEn = 0;
 
-    // Comienzo
-    console.log("tcomienzo:", params.selectTComienzo)
+    
+     var tipoTerminacion = 0;
+    
+
+    // Terminacion
+    tipoTerminacion = params.selectTTerminacion
+
+  
     console.log("Parametros recibidos para calculo antes switch: ", params); 
-    switch (params.selectTComienzo) {
-      case "1":
-        comienzaEn = 38; // descuento por tipo C
-        break;
-      case "2":
-        comienzaEn = 43; // descuento por tipo L
-        break;
-      default:
-        break;
-    }
     switch (params.selectCSeparacion) {
       case "1":
-        comienzaEn += parseInt(params.cSeparacion);
+        comienzaEn = parseInt(params.selectTComienzo) + parseInt(params.cSeparacion)  // descuento por tipo C
         break;
       case "2":
-        comienzaEn += ((parseInt(params.cSeparacion)) - 55) / 2;
+          
+        comienzaEn = (parseInt(params.selectTComienzo)) + (Math.round(((parseInt(params.cSeparacion)) - 55) / 2)); // Redondear al entero más cercano
         break;
       default:
         break;
     }
-
-    
-
-    
-    // Terminacion
-     
-    switch (params.selectTTerminacion) {
-      case "1":
-        terminaEn = 38; // descuento por tipo C
-        break;
-      case "2":
-        terminaEn = 43; // descuento por tipo L
-        break;
-      default:
-        break;
-    }
+  
     switch (params.selectTSeparacion) {
       case "1":
-        terminaEn += parseInt(params.tSeparacion);
+        terminaEn = parseInt(params.selectTTerminacion) + parseInt(params.tSeparacion); // Agregar separación por tipo C
         break;
       case "2":
-        comienzaEn += ((parseInt(params.tSeparacion)) - 55) / 2;
+        terminaEn = parseInt(params.selectTTerminacion) + Math.round(((parseInt(params.tSeparacion)) - 55) / 2); // Agregar separación por tipo L
         break;
       default:
         break;
     }
-
+        
     
     // Imprimir los resultados
     const cantidad_vidrios = Math.floor(params.largoTramo / 1250);
@@ -73,7 +58,7 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
     console.log("Valor de params.cSeparacion:", params.cSeparacion);
     console.log("Valor de params.tSeparacion:", params.tSeparacion);
     console.log("Valor de cantidad_vidrios:", cantidad_vidrios);
-    const longitud_tramo = Math.round((params.largoTramo - comienzaEn - terminaEn - params.tSeparacion - ((cantidad_vidrios - 1) * 21)) / cantidad_vidrios);
+    const longitud_tramo = Math.round((params.largoTramo - comienzaEn - terminaEn - ((cantidad_vidrios - 1) * 21)) / cantidad_vidrios);
 
     const cantidad_columnas = cantidad_vidrios + 1;
     console.log("Cantidad de columnas necesarias:", cantidad_columnas);
@@ -99,9 +84,15 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
     handleSubmit(params);
   }
 
-  const handleChange = (event) => {
+  /*const handleChange = (event) => {
     setOptionSelected(event.target.value);
-  }
+  }*/
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setOptionSelected(value);
+    
+   
+  
 
   return (
     <ModalControl
@@ -111,11 +102,15 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
     handleSubmit={handleSend}
     {...props}
   >
+    //const longitud_baranda = params.largoTramo - comienzaEn - terminaEn - params.tSeparacion - params.cSeparacion;
+
     <Form>
       <Form.Check
         type="radio"
         id="propuesta1"
-        label="Propuesta 1"
+        //const longitud_tramo = Math.round((params.largoTramo - comienzaEn - terminaEn - params.tSeparacion - ((cantidad_vidrios - 1) * 21)) / cantidad_vidrios);
+
+       // label={`Se sugiere utilizar ${cantidad_columnas - 2} columnas, lo que resulta en ${cantidad_columnas - 1} Vidrios de ${(longitud_baranda - ((cantidad_columnas - 2) * 21)) / (cantidad_columnas - 1)} mm cada uno.`}
         name="radioGroup"
         value="1"
         checked={optionSelected === "1"}
