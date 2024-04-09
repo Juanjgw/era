@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ModalControl from './controls/modalControl';
 import { Form } from 'react-bootstrap';
 
 const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props }) => {
   const [optionSelected, setOptionSelected] = useState("1");
-  
+  const [cantidad_columnas, setCantidad_columnas] = useState(0);
+  const [longitud_baranda, setLongitud_baranda] = useState(0);
 
   const calcularTramos = () => {
     switch (true) {
@@ -24,10 +25,6 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
         var comienzaEn = 0;
         var terminaEn = 0;
 
-
-        // Terminacion
-       
-        console.log("Parametros recibidos para calculo antes switch: ", params); 
         switch (params.selectCSeparacion) {
           case "1":
             comienzaEn = parseInt(params.selectTComienzo) + parseInt(params.cSeparacion); // descuento por tipo C
@@ -38,7 +35,7 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
           default:
             break;
         }
-        
+
         switch (params.selectTSeparacion) {
           case "1":
             terminaEn = parseInt(params.selectTTerminacion) + parseInt(params.tSeparacion); // Agregar separación por tipo C
@@ -49,22 +46,15 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
           default:
             break;
         }
-        
-        // Imprimir los resultados
-        const cantidad_vidrios = Math.floor(params.largoTramo / 1250);
-        console.log("Valor de params.largoTramo:", params.largoTramo);
-        console.log("Valor de comienzaEn:", comienzaEn);
-        console.log("Valor de terminaEn:", terminaEn);
-        console.log("Valor de params.cSeparacion:", params.cSeparacion);
-        console.log("Valor de params.tSeparacion:", params.tSeparacion);
-        console.log("Valor de cantidad_vidrios:", cantidad_vidrios);
+
+        const cantidad_vidrios = Math.floor(params.largoTramo / 1400);
         const longitud_tramo = Math.round((params.largoTramo - comienzaEn - terminaEn - ((cantidad_vidrios - 1) * 21)) / cantidad_vidrios);
 
-        const cantidad_columnas = cantidad_vidrios + 1;
-        console.log("Cantidad de columnas necesarias:", cantidad_columnas);
-        console.log("Longitud de los vidrios:", longitud_tramo);
+        const cantidad_columnas_calculadas = cantidad_vidrios + 1;
+        const longitud_baranda_calculada = params.largoTramo - comienzaEn - terminaEn
+        setCantidad_columnas(cantidad_columnas_calculadas);
+        setLongitud_baranda(longitud_baranda_calculada);
 
-        console.log("Parametros recibidos para calculo: ", params);  
         switch (optionSelected) {
           case "2":
             params.cantidadTramos = 2;
@@ -80,8 +70,15 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
     }
   };
 
-  const handleSend = () => {
+  useEffect(() => {
     calcularTramos();
+  }, [params, optionSelected]);
+  
+  useEffect(() => {
+    console.log("Valores de params:", params); // Aquí se imprime params al cargar el componente o cada vez que params cambie
+  }, [params]);
+
+  const handleSend = () => {
     handleSubmit(params);
   };
 
@@ -102,6 +99,7 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
         <Form.Check
           type="radio"
           id="propuesta1"
+          label={`Se sugiere utilizar ${cantidad_columnas - 2} columnas, lo que resulta en ${cantidad_columnas - 1} Vidrios de ${Math.round((longitud_baranda - ((cantidad_columnas - 2) * 21)) / (cantidad_columnas - 1))} mm cada uno.`}
           name="radioGroup"
           value="1"
           checked={optionSelected === "1"}
@@ -110,7 +108,7 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
         <Form.Check
           type="radio"
           id="propuesta2"
-          label="Propuesta 2"
+          label={`Se sugiere utilizar ${cantidad_columnas - 1} columnas, lo que resulta en <strong>${cantidad_columnas}</strong> Vidrios de ${Math.round((longitud_baranda - ((cantidad_columnas - 1) * 21)) / cantidad_columnas)} mm cada uno.`}
           name="radioGroup"
           value="2"
           checked={optionSelected === "2"}
@@ -119,7 +117,8 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
         <Form.Check
           type="radio"
           id="propuesta3"
-          label="Propuesta 3"
+          label={`Se sugiere utilizar ${cantidad_columnas} columnas, lo que resulta en ${cantidad_columnas +1} Vidrios de ${Math.round((longitud_baranda - (cantidad_columnas*21)) / (cantidad_columnas + 1))} mm cada uno.`}
+         
           name="radioGroup"
           value="3"
           checked={optionSelected === "3"}
