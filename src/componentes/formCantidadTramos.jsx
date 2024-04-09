@@ -95,36 +95,54 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
       handleSubmit={handleSend}
       {...props}
     >
-      <Form>
-        <Form.Check
-          type="radio"
-          id="propuesta1"
-          label={`Se sugiere utilizar ${cantidad_columnas - 2} columnas, lo que resulta en ${cantidad_columnas - 1} Vidrios de ${Math.round((longitud_baranda - ((cantidad_columnas - 2) * 21)) / (cantidad_columnas - 1))} mm cada uno.`}
-          name="radioGroup"
-          value="1"
-          checked={optionSelected === "1"}
-          onChange={handleChange}
-        />
-        <Form.Check
-          type="radio"
-          id="propuesta2"
-          label={`Se sugiere utilizar ${cantidad_columnas - 1} columnas, lo que resulta en <strong>${cantidad_columnas}</strong> Vidrios de ${Math.round((longitud_baranda - ((cantidad_columnas - 1) * 21)) / cantidad_columnas)} mm cada uno.`}
-          name="radioGroup"
-          value="2"
-          checked={optionSelected === "2"}
-          onChange={handleChange}
-        />
-        <Form.Check
-          type="radio"
-          id="propuesta3"
-          label={`Se sugiere utilizar ${cantidad_columnas} columnas, lo que resulta en ${cantidad_columnas +1} Vidrios de ${Math.round((longitud_baranda - (cantidad_columnas*21)) / (cantidad_columnas + 1))} mm cada uno.`}
-         
-          name="radioGroup"
-          value="3"
-          checked={optionSelected === "3"}
-          onChange={handleChange}
-        />
-      </Form>
+     <Form>
+  <Form.Check
+    type="radio"
+    id="propuesta1"
+    label={
+      <span>
+        Se sugiere utilizar {cantidad_columnas - 2} columnas, lo que resulta en{' '}
+        <strong>{cantidad_columnas - 1} Vidrios</strong> de{' '}
+        {Math.round((longitud_baranda - ((cantidad_columnas - 2) * 21)) / (cantidad_columnas - 1))} mm cada uno.
+      </span>
+    }
+    name="radioGroup"
+    value="1"
+    checked={optionSelected === "1"}
+    onChange={handleChange}
+  />
+  <Form.Check
+    type="radio"
+    id="propuesta2"
+    label={
+      <span>
+        Se sugiere utilizar {cantidad_columnas - 1} columnas, lo que resulta en{' '}
+        <strong>{cantidad_columnas} Vidrios</strong> de{' '}
+        {Math.round((longitud_baranda - ((cantidad_columnas - 1) * 21)) / cantidad_columnas)} mm cada uno.
+      </span>
+    }
+    name="radioGroup"
+    value="2"
+    checked={optionSelected === "2"}
+    onChange={handleChange}
+  />
+  <Form.Check
+    type="radio"
+    id="propuesta3"
+    label={
+      <span>
+        Se sugiere utilizar {cantidad_columnas} columnas, lo que resulta en{' '}
+        <strong>{cantidad_columnas + 1} Vidrios</strong> de{' '}
+        {Math.round((longitud_baranda - (cantidad_columnas * 21)) / (cantidad_columnas + 1))} mm cada uno.
+      </span>
+    }
+    name="radioGroup"
+    value="3"
+    checked={optionSelected === "3"}
+    onChange={handleChange}
+  />
+</Form>
+
     </ModalControl>
   );
 };
