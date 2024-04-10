@@ -56,6 +56,9 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
         setLongitud_baranda(longitud_baranda_calculada);
 
         switch (optionSelected) {
+          case "1":
+            params.cantidadTramos = 1;
+          
           case "2":
             params.cantidadTramos = 2;
             break;
@@ -63,7 +66,7 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
             params.cantidadTramos = 3;
             break;
           default:
-            params.cantidadTramos = 1;
+            params.cantidadTramos = 5;
             break;
         }
         break;
@@ -84,9 +87,13 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
 
   const handleChange = (event) => {
     const { value } = event.target;
+    console.log("Valor seleccionado:", value); // Imprime el valor del radio propuesta1
+      
+    // Aquí puedes realizar cualquier otra acción con el valor seleccionado
+    
     setOptionSelected(value);
   };
-
+  
   return (
     <ModalControl
       open={open}
@@ -107,8 +114,8 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
       </span>
     }
     name="radioGroup"
-    value="1"
-    checked={optionSelected === "1"}
+    value={cantidad_columnas-1}
+    checked={optionSelected === "2"}
     onChange={handleChange}
   />
   <Form.Check
@@ -122,7 +129,7 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
       </span>
     }
     name="radioGroup"
-    value="2"
+    value={cantidad_columnas}
     checked={optionSelected === "2"}
     onChange={handleChange}
   />
@@ -137,7 +144,7 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
       </span>
     }
     name="radioGroup"
-    value="3"
+    value= {cantidad_columnas + 1} 
     checked={optionSelected === "3"}
     onChange={handleChange}
   />
@@ -146,5 +153,6 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
     </ModalControl>
   );
 };
+
 
 export default FormCantidadTramos;
