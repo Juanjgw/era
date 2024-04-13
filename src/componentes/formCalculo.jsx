@@ -14,7 +14,7 @@ const defaultParams = {
   selectCSeparacion: -1,
   selectTTerminacion: -1,
   selectTSeparacion: -1,
-  cantidadTramos: 0, // ejemplo de valor a definir en modal
+  select_cantidad_vidrios: 0, // ejemplo de valor a definir en modal
 }
 
 const FormCalculo = () => {
