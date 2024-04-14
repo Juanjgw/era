@@ -65,16 +65,17 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
 
           switch (selectedOption) {
             case "1":
-              params.cantidadTramos = 1;
+              params.cantidadTramos = cantidad_columnas - 1;
+              params.largoVidrio = longitud_tramo;
               break;
             case "2":
-              params.cantidadTramos = 2;
+              params.cantidadTramos = cantidad_columnas;
               break;
             case "3":
-              params.cantidadTramos = 3;
+              params.cantidadTramos = cantidad_columnas + 1;
               break;
             default:
-              params.cantidadTramos = 5;
+              params.cantidadTramos = 0;
               break;
           }
           break;
@@ -121,7 +122,7 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
           label={
             <span>
               Se sugiere utilizar {cantidad_columnas - 2} columnas H, lo que resulta en{' '}
-              <strong>{cantidad_columnas - 1} Vidrios</strong> de{' '}
+             <strong>{cantidad_columnas - 1} Vidrios</strong> de{' '}
               {Math.round((longitud_baranda - ((cantidad_columnas - 2) * 21)) / (cantidad_columnas - 1))} mm cada uno.
             </span>
           }
@@ -136,7 +137,8 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
             <span>
               Se sugiere utilizar {cantidad_columnas - 1} columnas H, lo que resulta en{' '}
               <strong>{cantidad_columnas} Vidrios</strong> de{' '}
-              {Math.round((longitud_baranda - ((cantidad_columnas - 1) * 21)) / cantidad_columnas)} mm cada uno.
+              {params.largoVidrio = Math.round((longitud_baranda - ((cantidad_columnas - 1) * 21)) / cantidad_columnas)} mm cada uno.
+
             </span>
           }
           name="radioGroup"
@@ -150,7 +152,7 @@ const FormCantidadTramos = ({ params, open, handleClose, handleSubmit, ...props 
             <span>
               Se sugiere utilizar {cantidad_columnas} columnas H, lo que resulta en{' '}
               <strong>{cantidad_columnas + 1} Vidrios</strong> de{' '}
-              {Math.round((longitud_baranda - (cantidad_columnas * 21)) / (cantidad_columnas + 1))} mm cada uno.
+              {params.largoVidrio = Math.round((longitud_baranda - (cantidad_columnas * 21)) / (cantidad_columnas + 1))} mm cada uno.
             </span>
           }
           name="radioGroup"
